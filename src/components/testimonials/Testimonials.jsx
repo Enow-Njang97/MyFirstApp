@@ -5,14 +5,32 @@ import AVTR2 from '../../assets/avatar2.jpg'
 import AVTR3 from '../../assets/avatar3.jpg'
 import AVTR4 from '../../assets/avatar4.jpg'
 
+// import Swiper core and required modules
+import {Pagination } from 'swiper';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+
+
 const Testimonials = () => {
   return (
     <section id='testimonials'>
       <h5>Review from clients</h5>
       <h2>Testimonials</h2>
 
-      <div className="container testimonials__container">
-        <article className="testimonial">
+      <Swiper className="container testimonials__container"
+      // install Swiper modules
+      modules={[Pagination]}
+      spaceBetween={40}
+      slidesPerView={1}
+      navigation
+      pagination={{ clickable: true }}>
+ 
+        <SwiperSlide className="testimonial">
           <div className="client__avatar">
             <img src={AVTR1} alt="Avatar One" />
             </div>
@@ -23,9 +41,9 @@ You are the best at what you do.
 You have a talent for attention to detail, and it shows in your work.
 You continue to amaze us with your talent and dedication.
             </small>
-        </article>
+        </SwiperSlide>
 
-        <article className="testimonial">
+        <SwiperSlide className="testimonial">
           <div className="client__avatar">
             <img src={AVTR2} alt="Avatar Two" />
             </div>
@@ -36,9 +54,9 @@ You continue to amaze us with your talent and dedication.
 Thank you for being an amazing coworker.
 I can always count on you.
             </small>
-        </article>
+        </SwiperSlide>
 
-        <article className="testimonial">
+        <SwiperSlide className="testimonial">
           <div className="client__avatar">
             <img src={AVTR3} alt="Avatar Three" />
             </div>
@@ -49,9 +67,9 @@ You are the best at what you do.
 You have a talent for attention to detail, and it shows in your work.
 You continue to amaze us with your talent and dedication.
             </small>
-        </article>
+        </SwiperSlide>
 
-        <article className="testimonial">
+        <SwiperSlide className="testimonial">
           <div className="client__avatar">
             <img src={AVTR4} alt="Avatar Four" />
             </div>
@@ -65,8 +83,8 @@ You continue to amaze us with your talent and dedication.
 
 You are definitely in a different league. It’s fun to work with you because you have new ideas.
             </small>
-        </article>
-      </div>
+        </SwiperSlide>
+      </Swiper>
     </section>
   )
 }
