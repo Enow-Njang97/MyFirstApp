@@ -4,12 +4,13 @@ import { MdOutlineEmail } from "react-icons/md";
 import { RiMessengerLine } from "react-icons/ri";
 import { BsWhatsapp } from "react-icons/bs";
 import { useRef } from "react";
+import emailjs from 'emailjs-com'
 
 const Contact = () => {
   const form = useRef();
   const sendEmail = (e) => {
-    e.preventDefault();
-   
+    //e.preventDefault();
+    emailjs.sendForm('service_r5b94s5', 'template_yirid98', form.current, '_AD3vdKF-xwR1gjrN')
     e.target.reset().then(
       (result) => {
         console.log(result.text);
