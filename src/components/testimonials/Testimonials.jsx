@@ -15,7 +15,7 @@ const  Testimonials=() =>{
   const [data, setData] = useState([{}]);
   useEffect(() => {
     axios
-      .get('https://https://giddy-lamb-drawers.cyclic.app/api/testimonial')
+      .get('https://giddy-lamb-drawers.cyclic.app/api/testimonial')
       .then(response => {
         const formattedData =response.data.data.map(item =>({
           id:item._id,

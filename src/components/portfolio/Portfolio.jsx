@@ -9,7 +9,7 @@ const  Portfolio=() =>{
   const [data, setData] = useState([{}]);
   useEffect(() => {
     axios
-      .get('https://https://giddy-lamb-drawers.cyclic.app/api/portfolio')
+      .get('https://giddy-lamb-drawers.cyclic.app/api/portfolio')
       .then(response => {
         const formattedData =response.data.data.map(item =>({
           id:item._id,
