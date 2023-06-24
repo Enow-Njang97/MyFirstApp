@@ -1,92 +1,61 @@
-import React from 'react'
-import './testimonials.css'
-import AVTR1 from '../../assets/avatar1.jpg'
-import AVTR2 from '../../assets/avatar2.jpg'
-import AVTR3 from '../../assets/avatar3.jpg'
-import AVTR4 from '../../assets/avatar4.jpg'
+import React, { useEffect, useState } from 'react';
+import './testimonials.css';
+import axios from 'axios';
 
-// import Swiper core and required modules
-import {Pagination } from 'swiper';
 
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-
-
-const Testimonials = () => {
-  return (
-    <section id='testimonials'>
-      <h5>Review from clients</h5>
-      <h2>Testimonials</h2>
-
-      <Swiper className="container testimonials__container"
-      // install Swiper modules
-      modules={[Pagination]}
-      spaceBetween={40}
-      slidesPerView={1}
-      navigation
-      pagination={{ clickable: true }}>
+const  Testimonials=() =>{
  
-        <SwiperSlide className="testimonial">
-          <div className="client__avatar">
-            <img src={AVTR1} alt="Avatar One" />
-            </div>
-            <h5 className='client__name'> Mark Louise</h5>
-            <small className='client__review'>
-            I appreciate your hard work.
-You are the best at what you do.
-You have a talent for attention to detail, and it shows in your work.
-You continue to amaze us with your talent and dedication.
-            </small>
-        </SwiperSlide>
-
-        <SwiperSlide className="testimonial">
-          <div className="client__avatar">
-            <img src={AVTR2} alt="Avatar Two" />
-            </div>
-            <h5 className='client__name'> Robert Rigo</h5>
-            <small className='client__review'>
-            You have a talent for attention to detail, and it shows in your work.
-You continue to amaze us with your talent and dedication.
-Thank you for being an amazing coworker.
-I can always count on you.
-            </small>
-        </SwiperSlide>
-
-        <SwiperSlide className="testimonial">
-          <div className="client__avatar">
-            <img src={AVTR3} alt="Avatar Three" />
-            </div>
-            <h5 className='client__name'> Zidane Mitof</h5>
-            <small className='client__review'>
-            I appreciate your hard work.
-You are the best at what you do.
-You have a talent for attention to detail, and it shows in your work.
-You continue to amaze us with your talent and dedication.
-            </small>
-        </SwiperSlide>
-
-        <SwiperSlide className="testimonial">
-          <div className="client__avatar">
-            <img src={AVTR4} alt="Avatar Four" />
-            </div>
-            <h5 className='client__name'> Elizabeth keen</h5>
-            <small className='client__review'>
-            Great work. Your problem-solving skills are second to none. 
-
- Your skills and abilities are perfect for your job, and you really make a difference.
-
- Thank you for always being dependable. It’s great to know I can count on you.
-
-You are definitely in a different league. It’s fun to work with you because you have new ideas.
-            </small>
-        </SwiperSlide>
+  const [data, setData] = useState([{}]);
+  useEffect(() => {
+    axios
+      .get('https://https://giddy-lamb-drawers.cyclic.app/api/testimonial')
+      .then(response => {
+        const formattedData =response.data.data.map(item =>({
+          id:item._id,
+          avatar:item.avatar,
+          name:item.name,
+          review:item.review,
+          
+        }));
+        setData(formattedData)
+      }).catch(error=>{console.log("error fetching testimonials data",error);})
+    },[])
+      
+  
+  return (
+      <section id='portfolio'>
+      <h5>My Recent Review</h5>
+      <h2>Testimonials</h2>
+      <Swiper
+        className="container testimonials__container"
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        spaceBetween={40}
+        slidesPerView={1}
+        navigation
+        pagination={{ clickable: true }}
+        scrollbar={{ draggable: true }}
+      >
+        { (
+          data.map(({ avatar, name, review }, index) => (
+            <SwiperSlide className="testimonial" key={index}>
+              <div className="client__avatar">
+                <img src={avatar} alt="Avatar" />
+              </div>
+              <h5 className="client__name">{name}</h5>
+              <small className="client__review">{review}</small>
+            </SwiperSlide>
+          ))
+        )}
       </Swiper>
     </section>
-  )
+  );
 }
 
-export default Testimonials
+export default Testimonials;
